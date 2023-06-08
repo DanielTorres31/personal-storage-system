@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components'
+import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react'
+import chakraTheme from '@chakra-ui/theme'
+import { SideMenu } from './components/SideMenu'
+import { TopMenu } from './components/TopMenu'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <ChakraBaseProvider theme={theme}>
+            <Container>
+                <TopMenu />
+                <Body>
+                    <SideMenu></SideMenu>
+                    <Content></Content>
+                </Body>
+            </Container>
+        </ChakraBaseProvider>
+    )
 }
 
-export default App;
+const { Button } = chakraTheme.components
+const theme = extendBaseTheme({
+    styles: {
+        global: {
+            'html, body': {
+                backgroundColor: '#F2F2F2',
+            },
+        },
+    },
+    components: {
+        Button,
+    },
+})
+
+const Container = styled.div`
+    width: 100%;
+    height: 100vh;
+`
+
+const Body = styled.div`
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    width: 100%;
+    height: calc(100% - 60px);
+    padding: 0 16px 16px;
+`
+
+const Content = styled.div`
+    background-color: white;
+    border-radius: 25px;
+`
+
+export default App
+
